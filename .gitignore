@@ -1,0 +1,63 @@
+# =========================
+# CMake
+# =========================
+CMakeCache.txt
+CMakeFiles/
+cmake-build-*/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+Makefile
+
+# =========================
+# CLion / JetBrains
+# =========================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# =========================
+# Build artifacts
+# =========================
+build/
+out/
+bin/
+lib/
+
+# =========================
+# Compiled files
+# =========================
+*.o
+*.obj
+*.lo
+*.la
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+
+# =========================
+# Debug / profiling
+# =========================
+*.dSYM/
+*.stackdump
+gmon.out
+perf.data*
+vgcore.*
+
+# =========================
+# OS junk
+# =========================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =========================
+# Logs
+# =========================
+*.log
