@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(CHIP_8Emulator
         src/main.cpp
         src/RomFile.cpp
-        include/RomFile.h)
+        include/RomFile.h
+        src/Interpreter.cpp
+        include/Interpreter.h)
 
 target_include_directories(CHIP_8Emulator PRIVATE
         include)
