@@ -10,7 +10,9 @@ add_executable(CHIP_8Emulator
         src/RomFile.cpp
         include/RomFile.h
         src/Interpreter.cpp
-        include/Interpreter.h)
+        include/Interpreter.h
+        src/DisplayWindow.cpp
+        include/DisplayWindow.h)
 
 target_link_libraries(CHIP_8Emulator
         SFML::System
