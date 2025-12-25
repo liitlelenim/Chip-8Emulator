@@ -3,6 +3,8 @@ project(CHIP_8Emulator)
 
 set(CMAKE_CXX_STANDARD 20)
 
+add_subdirectory(vendor/SFML-3.0.2/)
+
 add_executable(CHIP_8Emulator
         src/main.cpp
         src/RomFile.cpp
@@ -10,5 +12,11 @@ add_executable(CHIP_8Emulator
         src/Interpreter.cpp
         include/Interpreter.h)
 
+target_link_libraries(CHIP_8Emulator
+        SFML::System
+        SFML::Window
+        SFML::Main
+        SFML::Graphics)
 target_include_directories(CHIP_8Emulator PRIVATE
-        include)
+        include
+        vendor/SFML-3.0.2/include)
