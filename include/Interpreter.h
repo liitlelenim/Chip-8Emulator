@@ -9,10 +9,11 @@
 
 class Interpreter {
 public:
-    static constexpr size_t SizeOfMemoryInBytes = 0xFFF; //4096 bytes
-    static constexpr size_t ProgramStartAddress = 0x200; //512 for most programs
+    static constexpr size_t SizeOfMemoryBytes = 0xFFF;
+    static constexpr size_t ProgramStartAddress = 0x200;
+    static constexpr size_t InstructionSizeBytes = 2;
 private:
-    std::vector<std::byte> memory{SizeOfMemoryInBytes};
+    std::vector<std::byte> memory{SizeOfMemoryBytes};
 
     std::array<uint8_t, 16> registers{0};
     uint16_t programCounter{ProgramStartAddress};
