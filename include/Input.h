@@ -2,7 +2,6 @@
 
 #include <array>
 #include <SFML/Window.hpp>
-
 /*
  * We're mapping this chip-8 layout to
  * qwerty keyboard
@@ -16,10 +15,8 @@
     a s d f
     z x c v
  */
-
 class Input {
 public:
-
     static constexpr std::array<sf::Keyboard::Key, 16> ValueToKey{
             sf::Keyboard::Key::X,
             sf::Keyboard::Key::Num1,
