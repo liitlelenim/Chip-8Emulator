@@ -1,9 +1,11 @@
-﻿#include <iostream>
-#include "Interpreter.h"
+﻿#include "Interpreter.h"
 #include "Input.h"
+#include "HexadecimalSprites.h"
 
 Interpreter::Interpreter(const RomFile &romFile) {
     const std::vector<std::byte> &romData = romFile.GetData();
+    const auto &hexadecimalSprites = HexadecimalSprites::SpritesData;
+    std::copy(hexadecimalSprites.begin(), hexadecimalSprites.end(), memory.begin());
     std::copy(romData.begin(), romData.end(), memory.begin() + ProgramStartAddress);
     InitializeMethodInstructions();
 }
