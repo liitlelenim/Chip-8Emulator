@@ -69,6 +69,7 @@ void Interpreter::InitializeMethodInstructions() {
 }
 
 void Interpreter::OP_0(uint16_t opCode) {
+    OP_0SubInstructionsMethods[opCode & 0xFF](opCode);
 }
 
 void Interpreter::OP_1(uint16_t opCode) {
@@ -78,9 +79,7 @@ void Interpreter::OP_1(uint16_t opCode) {
 
 void Interpreter::OP_2(uint16_t opCode) {
     uint16_t address = 0x0FFF & opCode;
-    stack[stackPointer] = programCounter + InstructionSizeBytes;
-    stackPointer++;
-
+    stack[stackPointer++] = programCounter + InstructionSizeBytes;
     programCounter = address;
 }
 
@@ -175,12 +174,12 @@ void Interpreter::OP_F(uint16_t opCode) {
 
 }
 
-void Interpreter::OP_0_0EE(uint16_t opCode) {
+void Interpreter::OP_0_0E0(uint16_t opCode) {
 
 }
 
-void Interpreter::OP_0_0E0(uint16_t opCode) {
-
+void Interpreter::OP_0_0EE(uint16_t opCode) {
+    programCounter = stack[--stackPointer];
 }
 
 void Interpreter::OP_8_xy0(uint16_t opCode) {
