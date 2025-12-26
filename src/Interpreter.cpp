@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "Interpreter.h"
+#include "Input.h"
 
 Interpreter::Interpreter(const RomFile &romFile) {
     const std::vector<std::byte> &romData = romFile.GetData();
@@ -167,7 +168,7 @@ void Interpreter::OP_D(uint16_t opCode) {
 }
 
 void Interpreter::OP_E(uint16_t opCode) {
-
+    OP_ESubInstructionsMethods[opCode & 0xFF](opCode);
 }
 
 void Interpreter::OP_F(uint16_t opCode) {
@@ -257,11 +258,21 @@ void Interpreter::OP_8_xyE(uint16_t opCode) {
 }
 
 void Interpreter::OP_E_x9E(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    sf::Keyboard::Key checkedKey = Input::ValueToKey[registers[xRegisterIndex]];
+    if (sf::Keyboard::isKeyPressed(checkedKey)) {
+        programCounter += InstructionSizeBytes;
+    }
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_E_xA1(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    sf::Keyboard::Key checkedKey = Input::ValueToKey[registers[xRegisterIndex]];
+    if (!sf::Keyboard::isKeyPressed(checkedKey)) {
+        programCounter += InstructionSizeBytes;
+    }
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_F_x07(uint16_t opCode) {
