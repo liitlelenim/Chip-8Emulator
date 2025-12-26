@@ -13,6 +13,7 @@ add_executable(CHIP_8Emulator
         include/Interpreter.h
         src/DisplayWindow.cpp
         include/DisplayWindow.h
+        include/Input.h
 )
 
 target_link_libraries(CHIP_8Emulator
