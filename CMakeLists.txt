@@ -14,6 +14,8 @@ add_executable(CHIP_8Emulator
         src/DisplayWindow.cpp
         include/DisplayWindow.h
         include/Input.h
+        src/RandomNumberGenerator.cpp
+        include/RandomNumberGenerator.h
 )
 
 target_link_libraries(CHIP_8Emulator
@@ -21,6 +23,7 @@ target_link_libraries(CHIP_8Emulator
         SFML::Window
         SFML::Main
         SFML::Graphics)
+
 target_include_directories(CHIP_8Emulator PRIVATE
         include
         vendor/SFML-3.0.2/include)

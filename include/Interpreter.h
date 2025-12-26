@@ -5,7 +5,9 @@
 #include <array>
 #include <unordered_map>
 #include <functional>
+
 #include "RomFile.h"
+#include "RandomNumberGenerator.h"
 
 class Interpreter {
 public:
@@ -13,13 +15,16 @@ public:
     static constexpr size_t ProgramStartAddress = 0x200;
     static constexpr size_t InstructionSizeBytes = 2;
 private:
+    RandomNumberGenerator randomNumberGenerator;
     std::vector<std::byte> memory{SizeOfMemoryBytes};
-
     std::array<uint8_t, 16> registers{0};
+
     uint16_t IRegister{0};
     uint16_t programCounter{ProgramStartAddress};
     uint8_t stackPointer{0};
+
     std::array<uint16_t, 16> stack{0};
+
     std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> instructionsMethods;
     std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> OP_0SubInstructionsMethods;
     std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> OP_8SubInstructionsMethods;
