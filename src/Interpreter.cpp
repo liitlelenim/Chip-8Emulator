@@ -145,12 +145,14 @@ void Interpreter::OP_9(uint16_t opCode) {
 }
 
 void Interpreter::OP_A(uint16_t opCode) {
-    IRegister = opCode & 0x0FFF;
+    uint16_t address = opCode & 0x0FFF;
+    IRegister = address;
     programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_B(uint16_t opCode) {
-
+    uint16_t address = opCode & 0x0FFF;
+    programCounter = registers[0x0] + address;
 }
 
 void Interpreter::OP_C(uint16_t opCode) {
