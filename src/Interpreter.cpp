@@ -71,39 +71,77 @@ void Interpreter::OP_0(uint16_t opCode) {
 }
 
 void Interpreter::OP_1(uint16_t opCode) {
-
+    uint16_t address = 0x0FFF & opCode;
+    programCounter = address;
 }
 
 void Interpreter::OP_2(uint16_t opCode) {
+    uint16_t address = 0x0FFF & opCode;
+    stack[stackPointer] = programCounter + InstructionSizeBytes;
+    stackPointer++;
 
+    programCounter = address;
 }
 
 void Interpreter::OP_3(uint16_t opCode) {
+    uint8_t registerIndex = (opCode & 0x0F00) >> 8;
+    uint8_t valueToCompare = opCode & 0x00FF;
 
+    if (registers[registerIndex] == valueToCompare) {
+        programCounter += InstructionSizeBytes;
+    }
+
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_4(uint16_t opCode) {
+    uint8_t registerIndex = (opCode & 0x0F00) >> 8;
+    uint8_t valueToCompare = opCode & 0x00FF;
 
+    if (registers[registerIndex] != valueToCompare) {
+        programCounter += InstructionSizeBytes;
+    }
+
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_5(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
 
+    if (registers[xRegisterIndex] == registers[yRegisterIndex]) {
+        programCounter += InstructionSizeBytes;
+    }
+
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_6(uint16_t opCode) {
-
+    uint8_t registerIndex = (opCode & 0x0F00) >> 8;
+    uint8_t valueToSet = opCode & 0x00FF;
+    registers[registerIndex] = valueToSet;
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_7(uint16_t opCode) {
-
+    uint8_t registerIndex = (opCode & 0x0F00) >> 8;
+    uint8_t valueToSet = opCode & 0x00FF;
+    registers[registerIndex] += valueToSet;
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8(uint16_t opCode) {
-
+    OP_8SubInstructionsMethods[opCode & 0x000F](opCode);
 }
 
 void Interpreter::OP_9(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
 
+    if (registers[xRegisterIndex] != registers[yRegisterIndex]) {
+        programCounter += InstructionSizeBytes;
+    }
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_A(uint16_t opCode) {
@@ -139,39 +177,77 @@ void Interpreter::OP_0_0E0(uint16_t opCode) {
 }
 
 void Interpreter::OP_8_xy0(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
+    registers[xRegisterIndex] = registers[yRegisterIndex];
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8_xy1(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
+    registers[xRegisterIndex] = registers[xRegisterIndex] | registers[yRegisterIndex];
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8_xy2(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
+    registers[xRegisterIndex] = registers[xRegisterIndex] & registers[yRegisterIndex];
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8_xy3(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
+    registers[xRegisterIndex] = registers[xRegisterIndex] ^ registers[yRegisterIndex];
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8_xy4(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
 
+    uint16_t sum = registers[xRegisterIndex] + registers[yRegisterIndex];
+    registers[0xF] = sum > 0xFF ? 1 : 0;
+    registers[xRegisterIndex] = static_cast<uint8_t>(sum & 0xFF);
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8_xy5(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
 
+    registers[0xF] = registers[xRegisterIndex] > registers[yRegisterIndex] ? 1 : 0;
+    registers[xRegisterIndex] -= registers[yRegisterIndex];
+
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8_xy6(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;;
+    registers[0xF] = registers[xRegisterIndex] & 1;
+    registers[xRegisterIndex] >>= 1;
 
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8_xy7(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
 
+    registers[0xF] = registers[yRegisterIndex] > registers[xRegisterIndex] ? 1 : 0;
+    registers[xRegisterIndex] = registers[yRegisterIndex] - registers[xRegisterIndex];
+
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_8_xyE(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    registers[0xF] = (registers[xRegisterIndex] >> 7) & 1;
+    registers[xRegisterIndex] <<= 1;
 
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_E_x9E(uint16_t opCode) {
