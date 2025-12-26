@@ -156,7 +156,10 @@ void Interpreter::OP_B(uint16_t opCode) {
 }
 
 void Interpreter::OP_C(uint16_t opCode) {
-
+    uint8_t randomValue = randomNumberGenerator.GetRandomValue();
+    uint8_t xRegisterIndex = (0x0F00 & opCode) >> 8;
+    registers[xRegisterIndex] = randomValue & (opCode & 0xFF);
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_D(uint16_t opCode) {
