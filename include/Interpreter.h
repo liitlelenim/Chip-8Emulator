@@ -14,7 +14,7 @@ public:
 private:
     std::vector<std::byte> memory{SizeOfMemoryInBytes};
 
-    std::array<uint8_t, 16> Registers{0};
+    std::array<uint8_t, 16> registers{0};
     uint16_t programCounter{ProgramStartAddress};
     uint8_t stackPointer{0};
     std::array<uint16_t, 16> stack{};
