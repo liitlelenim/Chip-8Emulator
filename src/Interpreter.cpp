@@ -145,7 +145,8 @@ void Interpreter::OP_9(uint16_t opCode) {
 }
 
 void Interpreter::OP_A(uint16_t opCode) {
-
+    IRegister = opCode & 0x0FFF;
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_B(uint16_t opCode) {
