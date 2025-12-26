@@ -16,7 +16,7 @@ public:
     static constexpr size_t InstructionSizeBytes = 2;
 private:
     RandomNumberGenerator randomNumberGenerator;
-    std::vector<std::byte> memory{SizeOfMemoryBytes};
+    std::array<std::byte, SizeOfMemoryBytes> memory{};
     std::array<uint8_t, 16> registers{0};
 
     uint16_t IRegister{0};
