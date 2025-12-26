@@ -19,6 +19,10 @@ private:
     uint8_t stackPointer{0};
 
     std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> instructionsMethods;
+    std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> OP_0SubInstructionsMethods;
+    std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> OP_8SubInstructionsMethods;
+    std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> OP_ESubInstructionsMethods;
+    std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> OP_FSubInstructionsMethods;
 
 public:
     explicit Interpreter(const RomFile &romFile);
@@ -62,4 +66,47 @@ private:
 
     void OP_F(uint16_t opCode);
 
+    void OP_0_0EE(uint16_t opCode);
+
+    void OP_0_0E0(uint16_t opCode);
+
+    void OP_8_xy0(uint16_t opCode);
+
+    void OP_8_xy1(uint16_t opCode);
+
+    void OP_8_xy2(uint16_t opCode);
+
+    void OP_8_xy3(uint16_t opCode);
+
+    void OP_8_xy4(uint16_t opCode);
+
+    void OP_8_xy5(uint16_t opCode);
+
+    void OP_8_xy6(uint16_t opCode);
+
+    void OP_8_xy7(uint16_t opCode);
+
+    void OP_8_xyE(uint16_t opCode);
+
+    void OP_E_x9E(uint16_t opCode);
+
+    void OP_E_xA1(uint16_t opCode);
+
+    void OP_F_x07(uint16_t opCode);
+
+    void OP_F_x0A(uint16_t opCode);
+
+    void OP_F_x15(uint16_t opCode);
+
+    void OP_F_x18(uint16_t opCode);
+
+    void OP_F_x1E(uint16_t opCode);
+
+    void OP_F_x29(uint16_t opCode);
+
+    void OP_F_x33(uint16_t opCode);
+
+    void OP_F_x55(uint16_t opCode);
+
+    void OP_F_x65(uint16_t opCode);
 };
