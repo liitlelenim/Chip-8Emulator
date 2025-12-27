@@ -6,7 +6,9 @@ bool DisplayData::Draw(const std::vector<uint8_t> &spriteData, uint8_t xPos, uin
     yPos %= DisplayHeight;
     bool collisionHappened = false;
     for (int y = yPos; y < yPos + spriteData.size(); y++) {
+        if (y >= DisplayHeight) continue;
         for (int x = xPos; x < xPos + 8; x++) {
+            if (x >= DisplayWidth) continue;
             bool initialBitVal = displayData[y][x];
             displayData[y][x] = displayData[y][x] ^ (0x80 & (spriteData[y - yPos] >> (x - xPos)));
             if (spriteData[y - yPos] & (0x80 >> (x - xPos))) {
