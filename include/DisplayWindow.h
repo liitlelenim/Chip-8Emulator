@@ -18,7 +18,7 @@ private:
             }), "CHIP-8"};
 public:
 
-    DisplayWindow(const DisplayData &displayData);
+    explicit DisplayWindow(const DisplayData &displayData);
 
     bool ShouldBeOpen() const;
 
