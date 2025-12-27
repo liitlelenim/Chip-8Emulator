@@ -7,8 +7,9 @@ public:
     static constexpr int FontHeight = 5;
     static constexpr int FontCount = 16;
     static constexpr int FontSize = FontCount * FontHeight;
-    static constexpr std::array<uint8_t, FontSize> SpritesData{
+    static constexpr std::array<std::byte, FontSize> SpritesData{
             {
+                static_cast<std::byte>(
                     0xF0, 0x90, 0x90, 0x90, 0xF0, //0
                     0x20, 0x60, 0x20, 0x20, 0x70, //1
                     0xF0, 0x10, 0xF0, 0x80, 0xF0, //2
@@ -25,6 +26,7 @@ public:
                     0xE0, 0x90, 0x90, 0x90, 0xE0, //D
                     0xF0, 0x80, 0xF0, 0x80, 0xF0, //E
                     0xF0, 0x80, 0xF0, 0x80, 0x80  //F
+                )
             }
     };
 };
