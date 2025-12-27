@@ -1,8 +1,9 @@
-﻿cmake_minimum_required(VERSION 3.30)
+﻿cmake_minimum_required(VERSION 3.16)
 project(CHIP_8Emulator)
 
 set(CMAKE_CXX_STANDARD 20)
 
+set(SFML_BUILD_NETWORK OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/SFML-3.0.2/)
 
 add_executable(CHIP_8Emulator
@@ -24,9 +25,8 @@ add_executable(CHIP_8Emulator
 target_link_libraries(CHIP_8Emulator
         SFML::System
         SFML::Window
-        SFML::Main
         SFML::Graphics)
 
 target_include_directories(CHIP_8Emulator PRIVATE
         include
-        vendor/SFML-3.0.2/include)
+)
