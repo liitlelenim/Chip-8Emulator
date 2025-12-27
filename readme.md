@@ -32,13 +32,13 @@ path to a CHIP-8 ROM file:
 #### Linux
 
 ```
-./CHIP-8Emulator path/to/rom.ch8
+./CHIP8Emulator path/to/rom.ch8
 ```
 
 #### Windows
 
 ```
-.\CHIP-8Emulator.exe path\to\rom.ch8
+.\CHIP8Emulator.exe path\to\rom.ch8
 ```
 
 ### Usage notes

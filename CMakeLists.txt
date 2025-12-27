@@ -1,5 +1,5 @@
 ﻿cmake_minimum_required(VERSION 3.16)
-project(CHIP-8Emulator)
+project(CHIP8Emulator)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -9,7 +9,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin CACHE PATH "Output di
 set(SFML_BUILD_NETWORK OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/SFML-3.0.2/)
 
-add_executable(CHIP-8Emulator
+add_executable(CHIP8Emulator
         src/main.cpp
         src/RomFile.cpp
         include/RomFile.h
@@ -25,11 +25,15 @@ add_executable(CHIP-8Emulator
         include/HexadecimalSprites.h
 )
 
-target_link_libraries(CHIP-8Emulator
+target_link_libraries(CHIP8Emulator
         SFML::System
         SFML::Window
         SFML::Graphics)
 
-target_include_directories(CHIP-8Emulator PRIVATE
+target_include_directories(CHIP8Emulator PRIVATE
         include
+)
+
+set_target_properties(CHIP8Emulator PROPERTIES
+        OUTPUT_NAME "CHIP8Emulator"
 )
