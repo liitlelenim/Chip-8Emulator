@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "DisplayData.h"
+#include "SFML/Graphics/Sprite.hpp"
 
 class DisplayWindow {
 public:
@@ -9,13 +10,15 @@ public:
     static constexpr unsigned int EmulationResolutionMultiplier = 10;
     static constexpr unsigned int RefreshRate = 60;
 private:
+    const DisplayData &displayData;
     sf::RenderWindow window{sf::VideoMode(
             {
                     DisplayData::DisplayWidth * EmulationResolutionMultiplier,
                     DisplayData::DisplayHeight * EmulationResolutionMultiplier
             }), "CHIP-8"};
 public:
-    DisplayWindow();
+
+    DisplayWindow(const DisplayData &displayData);
 
     bool ShouldBeOpen() const;
 
@@ -24,5 +27,6 @@ public:
     void Draw();
 
 private:
+
     void HandleEvent(const sf::Event &event);
 };

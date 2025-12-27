@@ -1,4 +1,10 @@
-﻿#include "DisplayWindow.h"
+﻿#include <iostream>
+#include "DisplayWindow.h"
+#include "SFML/Graphics/Sprite.hpp"
+
+DisplayWindow::DisplayWindow(const DisplayData &displayData) : displayData(displayData) {
+    window.setFramerateLimit(RefreshRate);
+}
 
 bool DisplayWindow::ShouldBeOpen() const {
     return window.isOpen();
@@ -18,9 +24,9 @@ void DisplayWindow::HandleEvent(const sf::Event &event) {
 
 void DisplayWindow::Draw() {
     window.clear();
+    sf::Texture texture = displayData.GetDisplayTexture();
+    sf::Sprite sprite{texture};
+    sprite.setScale(sf::Vector2f{EmulationResolutionMultiplier, EmulationResolutionMultiplier});
+    window.draw(sprite);
     window.display();
-}
-
-DisplayWindow::DisplayWindow() {
-    window.setFramerateLimit(RefreshRate);
 }
