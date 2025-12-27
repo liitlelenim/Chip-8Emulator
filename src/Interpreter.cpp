@@ -184,7 +184,7 @@ void Interpreter::OP_E(uint16_t opCode) {
 }
 
 void Interpreter::OP_F(uint16_t opCode) {
-
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_0_0E0(uint16_t opCode) {
