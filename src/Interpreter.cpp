@@ -2,7 +2,7 @@
 #include "Input.h"
 #include "HexadecimalSprites.h"
 
-Interpreter::Interpreter(const RomFile &romFile) {
+Interpreter::Interpreter(const RomFile &romFile, DisplayData &displayData) : displayData(displayData) {
     const std::vector<std::byte> &romData = romFile.GetData();
     const auto &hexadecimalSprites = HexadecimalSprites::SpritesData;
     std::copy(hexadecimalSprites.begin(), hexadecimalSprites.end(), memory.begin());
@@ -165,6 +165,17 @@ void Interpreter::OP_C(uint16_t opCode) {
 }
 
 void Interpreter::OP_D(uint16_t opCode) {
+
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t yRegisterIndex = (opCode & 0x00F0) >> 4;
+    uint8_t spriteSize = opCode & 0x000F;
+
+    std::vector<uint8_t> spriteData(spriteSize);
+    for (int i = IRegister; i < IRegister + spriteSize; i++) {
+        spriteData[i - IRegister] = static_cast<uint8_t>(memory[i]);
+    }
+    registers[0xF] = displayData.Draw(spriteData, registers[xRegisterIndex], registers[yRegisterIndex]);
+    programCounter += InstructionSizeBytes;
 
 }
 

@@ -8,6 +8,7 @@
 
 #include "RomFile.h"
 #include "RandomNumberGenerator.h"
+#include "DisplayData.h"
 
 class Interpreter {
 public:
@@ -15,7 +16,8 @@ public:
     static constexpr size_t ProgramStartAddress = 0x200;
     static constexpr size_t InstructionSizeBytes = 2;
 private:
-    RandomNumberGenerator randomNumberGenerator;
+    DisplayData &displayData;
+    RandomNumberGenerator randomNumberGenerator{};
     std::array<std::byte, SizeOfMemoryBytes> memory{};
     std::array<uint8_t, 16> registers{0};
 
@@ -32,7 +34,7 @@ private:
     std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> OP_FSubInstructionsMethods;
 
 public:
-    explicit Interpreter(const RomFile &romFile);
+    explicit Interpreter(const RomFile &romFile, DisplayData &displayData);
 
     void PerformCurrentInstruction();
 
@@ -116,4 +118,6 @@ private:
     void OP_F_x55(uint16_t opCode);
 
     void OP_F_x65(uint16_t opCode);
+
+
 };
