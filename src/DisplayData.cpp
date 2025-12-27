@@ -20,3 +20,7 @@ bool DisplayData::Draw(const std::vector<uint8_t> &spriteData, uint8_t xPos, uin
     }
     return collisionHappened;
 }
+
+void DisplayData::Clear() {
+    displayData.fill(0);
+}

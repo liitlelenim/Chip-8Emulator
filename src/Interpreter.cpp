@@ -188,7 +188,8 @@ void Interpreter::OP_F(uint16_t opCode) {
 }
 
 void Interpreter::OP_0_0E0(uint16_t opCode) {
-
+    displayData.Clear();
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_0_0EE(uint16_t opCode) {

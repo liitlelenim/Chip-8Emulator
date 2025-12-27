@@ -12,4 +12,5 @@ private:
 public:
     //Returns did the collision occur
     bool Draw(const std::vector<uint8_t> &spriteData, uint8_t xPos, uint8_t yPos);
+    void Clear();
 };
