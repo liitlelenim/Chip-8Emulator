@@ -16,6 +16,8 @@ add_executable(CHIP_8Emulator
         include/Input.h
         src/RandomNumberGenerator.cpp
         include/RandomNumberGenerator.h
+        src/DisplayData.cpp
+        include/DisplayData.h
         include/HexadecimalSprites.h
 )
 
