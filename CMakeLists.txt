@@ -23,6 +23,8 @@ add_executable(CHIP8Emulator
         src/DisplayData.cpp
         include/DisplayData.h
         include/HexadecimalSprites.h
+        src/Timers.cpp
+        include/Timers.h
 )
 
 target_link_libraries(CHIP8Emulator
