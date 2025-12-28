@@ -9,6 +9,7 @@
 #include "RomFile.h"
 #include "RandomNumberGenerator.h"
 #include "DisplayData.h"
+#include "Timers.h"
 
 class Interpreter {
 public:
@@ -17,6 +18,7 @@ public:
     static constexpr size_t InstructionSizeBytes = 2;
 private:
     DisplayData &displayData;
+    Timers timers{};
     RandomNumberGenerator randomNumberGenerator{};
     std::array<std::byte, SizeOfMemoryBytes> memory{};
     std::array<uint8_t, 16> registers{0};
@@ -104,8 +106,6 @@ private:
     void OP_F_x07(uint16_t opCode);
 
     void OP_F_x0A(uint16_t opCode);
-
-    void OP_F_x15(uint16_t opCode);
 
     void OP_F_x18(uint16_t opCode);
 

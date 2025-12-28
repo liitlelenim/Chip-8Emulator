@@ -62,9 +62,10 @@ void Interpreter::InitializeMethodInstructions() {
     OP_FSubInstructionsMethods = {
             {0x07, [this](uint16_t opCode) { OP_F_x07(opCode); }},
             {0x0A, [this](uint16_t opCode) { OP_F_x0A(opCode); }},
-            {0x15, [this](uint16_t opCode) { OP_F_x15(opCode); }},
+            {0x15, [this](uint16_t opCode) { OP_F_x18(opCode); }},
             {0x1E, [this](uint16_t opCode) { OP_F_x1E(opCode); }},
             {0x29, [this](uint16_t opCode) { OP_F_x29(opCode); }},
+            {0x33, [this](uint16_t opCode) { OP_F_x33(opCode); }},
             {0x55, [this](uint16_t opCode) { OP_F_x55(opCode); }},
             {0x65, [this](uint16_t opCode) { OP_F_x65(opCode); }}
     };
@@ -184,7 +185,7 @@ void Interpreter::OP_E(uint16_t opCode) {
 }
 
 void Interpreter::OP_F(uint16_t opCode) {
-    programCounter += InstructionSizeBytes;
+    OP_FSubInstructionsMethods[opCode & 0xFF](opCode);
 }
 
 void Interpreter::OP_0_0E0(uint16_t opCode) {
@@ -289,38 +290,71 @@ void Interpreter::OP_E_xA1(uint16_t opCode) {
 }
 
 void Interpreter::OP_F_x07(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    registers[xRegisterIndex] = timers.DelayTimer;
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_F_x0A(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
 
-}
-
-void Interpreter::OP_F_x15(uint16_t opCode) {
-
+    for (uint8_t i = 0; i < 16; i++) {
+        if (sf::Keyboard::isKeyPressed(Input::ValueToKey[i])) {
+            registers[xRegisterIndex] = i;
+            programCounter += InstructionSizeBytes;
+            break;
+        }
+    }
 }
 
 void Interpreter::OP_F_x18(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    timers.SoundTimer = registers[xRegisterIndex];
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_F_x1E(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    IRegister += registers[xRegisterIndex];
+    programCounter += InstructionSizeBytes;
 }
 
-void Interpreter::OP_F_x29(uint16_t opCode) {
 
+void Interpreter::OP_F_x29(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    IRegister = registers[xRegisterIndex] * HexadecimalSprites::FontHeight;
+    programCounter += InstructionSizeBytes;
 }
 
 void Interpreter::OP_F_x33(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    uint8_t fullValue = registers[xRegisterIndex];
+    uint8_t hundreds = fullValue / 100;
+    uint8_t tens = (fullValue % 100) / 10;
+    uint8_t digits = fullValue % 10;
+
+    memory[IRegister] = static_cast<std::byte>(hundreds);
+    memory[IRegister + 1] = static_cast<std::byte>(tens);
+    memory[IRegister + 2] = static_cast<std::byte>(digits);
+
+    programCounter += InstructionSizeBytes;
 
 }
 
 void Interpreter::OP_F_x55(uint16_t opCode) {
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    for (uint8_t i = 0; i <= xRegisterIndex; i++) {
+        memory[IRegister + i] = static_cast<std::byte>(registers[i]);
+    }
+    programCounter += InstructionSizeBytes;
 
 }
 
 void Interpreter::OP_F_x65(uint16_t opCode) {
-
+    uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
+    for (uint8_t i = 0; i <= xRegisterIndex; i++) {
+        registers[i] = static_cast<uint8_t >(memory[IRegister + i]);
+    }
+    programCounter += InstructionSizeBytes;
 }
 
