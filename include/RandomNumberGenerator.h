@@ -2,11 +2,6 @@
 
 #include <random>
 
-class RandomNumberGenerator {
-public:
+namespace rng {
     uint8_t GetRandomValue();
-private:
-    std::random_device randomDevice;
-    std::mt19937 generator{randomDevice()};
-
-};
+}

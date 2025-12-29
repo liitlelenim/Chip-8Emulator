@@ -19,7 +19,6 @@ public:
 private:
     DisplayData &displayData;
     Timers timers{};
-    RandomNumberGenerator randomNumberGenerator{};
     std::array<std::byte, SizeOfMemoryBytes> memory{};
     std::array<uint8_t, 16> registers{0};
 
