@@ -2,31 +2,26 @@
 
 #include <array>
 
-class HexadecimalSprites {
-public:
+namespace font_sprites {
     static constexpr int FontHeight = 5;
     static constexpr int FontCount = 16;
     static constexpr int FontSize = FontCount * FontHeight;
-    static constexpr std::array<std::byte, FontSize> SpritesData{
-            {
-                    static_cast<std::byte>(
-                            0xF0, 0x90, 0x90, 0x90, 0xF0, //0
-                                    0x20, 0x60, 0x20, 0x20, 0x70, //1
-                                    0xF0, 0x10, 0xF0, 0x80, 0xF0, //2
-                                    0xF0, 0x10, 0xF0, 0x10, 0xF0, //3
-                                    0x90, 0x90, 0xF0, 0x10, 0x10, //4
-                                    0xF0, 0x80, 0xF0, 0x10, 0xF0, //5
-                                    0xF0, 0x80, 0xF0, 0x90, 0xF0, //6
-                                    0xF0, 0x10, 0x20, 0x40, 0x40, //7
-                                    0xF0, 0x90, 0x90, 0x90, 0xF0, //8
-                                    0xF0, 0x90, 0xF0, 0x10, 0xF0, //9
-                                    0xF0, 0x90, 0xF0, 0x90, 0x90, //A
-                                    0xE0, 0x90, 0xE0, 0x90, 0xE0, //B
-                                    0xF0, 0x80, 0x80, 0x80, 0xF0, //C
-                                    0xE0, 0x90, 0x90, 0x90, 0xE0, //D
-                                    0xF0, 0x80, 0xF0, 0x80, 0xF0, //E
-                                    0xF0, 0x80, 0xF0, 0x80, 0x80  //F
-                    )
-            }
-    };
-};
+    static constexpr std::array<std::byte, FontSize> SpritesData{{
+         std::byte{0xF0}, std::byte{0x90}, std::byte{0x90}, std::byte{0x90}, std::byte{0xF0}, // 0
+         std::byte{0x20}, std::byte{0x60}, std::byte{0x20}, std::byte{0x20}, std::byte{0x70}, // 1
+         std::byte{0xF0}, std::byte{0x10}, std::byte{0xF0}, std::byte{0x80}, std::byte{0xF0}, // 2
+         std::byte{0xF0}, std::byte{0x10}, std::byte{0xF0}, std::byte{0x10}, std::byte{0xF0}, // 3
+         std::byte{0x90}, std::byte{0x90}, std::byte{0xF0}, std::byte{0x10}, std::byte{0x10}, // 4
+         std::byte{0xF0}, std::byte{0x80}, std::byte{0xF0}, std::byte{0x10}, std::byte{0xF0}, // 5
+         std::byte{0xF0}, std::byte{0x80}, std::byte{0xF0}, std::byte{0x90}, std::byte{0xF0}, // 6
+         std::byte{0xF0}, std::byte{0x10}, std::byte{0x20}, std::byte{0x40}, std::byte{0x40}, // 7
+         std::byte{0xF0}, std::byte{0x90}, std::byte{0x90}, std::byte{0x90}, std::byte{0xF0}, // 8
+         std::byte{0xF0}, std::byte{0x90}, std::byte{0xF0}, std::byte{0x10}, std::byte{0xF0}, // 9
+         std::byte{0xF0}, std::byte{0x90}, std::byte{0xF0}, std::byte{0x90}, std::byte{0x90}, // A
+         std::byte{0xE0}, std::byte{0x90}, std::byte{0xE0}, std::byte{0x90}, std::byte{0xE0}, // B
+         std::byte{0xF0}, std::byte{0x80}, std::byte{0x80}, std::byte{0x80}, std::byte{0xF0}, // C
+         std::byte{0xE0}, std::byte{0x90}, std::byte{0x90}, std::byte{0x90}, std::byte{0xE0}, // D
+         std::byte{0xF0}, std::byte{0x80}, std::byte{0xF0}, std::byte{0x80}, std::byte{0xF0}, // E
+         std::byte{0xF0}, std::byte{0x80}, std::byte{0xF0}, std::byte{0x80}, std::byte{0x80}  // F
+    }};
+}

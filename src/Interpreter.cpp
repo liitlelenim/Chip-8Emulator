@@ -4,7 +4,7 @@
 
 Interpreter::Interpreter(const RomFile &romFile, DisplayData &displayData) : displayData(displayData) {
     const std::vector<std::byte> &romData = romFile.GetData();
-    const auto &hexadecimalSprites = HexadecimalSprites::SpritesData;
+    const auto &hexadecimalSprites = font_sprites::SpritesData;
     std::copy(hexadecimalSprites.begin(), hexadecimalSprites.end(), memory.begin());
     std::copy(romData.begin(), romData.end(), memory.begin() + ProgramStartAddress);
     InitializeMethodInstructions();
@@ -322,7 +322,7 @@ void Interpreter::OP_F_x1E(uint16_t opCode) {
 
 void Interpreter::OP_F_x29(uint16_t opCode) {
     uint8_t xRegisterIndex = (opCode & 0x0F00) >> 8;
-    IRegister = registers[xRegisterIndex] * HexadecimalSprites::FontHeight;
+    IRegister = registers[xRegisterIndex] * font_sprites::FontHeight;
     programCounter += InstructionSizeBytes;
 }
 
