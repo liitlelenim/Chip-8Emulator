@@ -7,7 +7,16 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin CACHE PATH "Output directory" FORCE)
 
 set(SFML_BUILD_NETWORK OFF CACHE BOOL "" FORCE)
+
 add_subdirectory(vendor/SFML-3.0.2/)
+
+add_subdirectory(vendor/imgui-1.91.9)
+target_link_libraries(imgui
+        PUBLIC
+        SFML::System
+        SFML::Window
+        SFML::Graphics
+)
 
 add_executable(CHIP8Emulator
         src/main.cpp
@@ -30,10 +39,12 @@ add_executable(CHIP8Emulator
 target_link_libraries(CHIP8Emulator
         SFML::System
         SFML::Window
-        SFML::Graphics)
+        SFML::Graphics
+        imgui)
 
-target_include_directories(CHIP8Emulator PRIVATE
+target_include_directories(CHIP8Emulator PUBLIC
         include
+        vendor/SFML-3.0.2/include
 )
 
 set_target_properties(CHIP8Emulator PROPERTIES
