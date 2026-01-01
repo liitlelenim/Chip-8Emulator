@@ -10,6 +10,7 @@ public:
     static constexpr unsigned int EmulationResolutionMultiplier = 10;
     static constexpr unsigned int RefreshRate = 60;
 private:
+    sf::Clock clock;
     const DisplayData &displayData;
     sf::RenderWindow window{sf::VideoMode(
             {
