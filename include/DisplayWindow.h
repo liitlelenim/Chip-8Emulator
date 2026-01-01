@@ -10,7 +10,7 @@ class UserInterface;
 
 class DisplayWindow {
 public:
-    static constexpr unsigned int EmulationResolutionMultiplier = 10;
+    static constexpr unsigned int EmulationResolutionMultiplier = 15;
 private:
     const DisplayData &displayData;
     UserInterface &userInterface;

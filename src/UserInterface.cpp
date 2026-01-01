@@ -9,11 +9,14 @@ UserInterface::UserInterface(EmulationSettings &emulationSettings) : emulationSe
 void UserInterface::Draw() {
     ImGui::SetNextWindowCollapsed(true, ImGuiCond_Once);
     ImGui::SetNextWindowPos({0, 0});
-    ImGui::SetNextWindowSize(ImVec2(300, 150));
+    ImGui::SetNextWindowSize(ImVec2(800, 150));
     ImGui::Begin("Settings", nullptr,
                  ImGuiWindowFlags_NoMove |
                  ImGuiWindowFlags_NoResize
     );
 
+    ImGui::InputInt("Max instruction amount per seconds", &emulationSettings.MaxInstructionsPerSecond, 1, 10000);
+    ImGui::ColorEdit4("Pixel color", emulationSettings.PixelColor);
+    ImGui::ColorEdit4("Background color", emulationSettings.BackgroundColor);
     ImGui::End();
 }
