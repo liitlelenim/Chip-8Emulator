@@ -1,8 +1,10 @@
 #include <iostream>
 #include <filesystem>
+#include <thread>
 #include "RomFile.h"
 #include "Interpreter.h"
 #include "DisplayWindow.h"
+#include "EmulationSettings.h"
 
 int main(int argc, char **argv) {
 
@@ -17,12 +19,14 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
+    EmulationSettings emulationSettings;
     RomFile romFile{romPath};
-    DisplayData displayData{};
+    DisplayData displayData{emulationSettings};
     DisplayWindow window{displayData};
-    Interpreter interpreter{romFile,displayData};
+    Interpreter interpreter{romFile, displayData};
 
     while (window.ShouldBeOpen()) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / emulationSettings.MaxInstructionsPerSecond));
         window.PollEvents();
         interpreter.PerformCurrentInstruction();
         window.Draw();

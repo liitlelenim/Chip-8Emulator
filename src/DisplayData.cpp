@@ -1,10 +1,12 @@
 ﻿#include "DisplayData.h"
 #include "SFML/Graphics/Image.hpp"
+#include "EmulationSettings.h"
 
-bool DisplayData::Draw(const std::vector<uint8_t>& spriteData,
+DisplayData::DisplayData(const EmulationSettings &emulationSettings) : emulationSettings(emulationSettings) {};
+
+bool DisplayData::Draw(const std::vector<uint8_t> &spriteData,
                        uint8_t xPos,
-                       uint8_t yPos)
-{
+                       uint8_t yPos) {
     bool collisionHappened = false;
 
     for (size_t row = 0; row < spriteData.size(); row++) {
@@ -38,8 +40,9 @@ sf::Texture DisplayData::GetDisplayTexture() const {
     sf::Image displayImage{sf::Vector2u{DisplayWidth, DisplayHeight}};
     for (unsigned int y = 0; y < DisplayHeight; y++) {
         for (unsigned int x = 0; x < DisplayWidth; x++) {
-            displayImage.setPixel(sf::Vector2u{x, y}, displayData[y][x] ? PixelOnColor : PixelOffColor);
+            displayImage.setPixel(sf::Vector2u{x, y},
+                                  displayData[y][x] ? emulationSettings.PixelColor : emulationSettings.BackgroundColor);
         }
     }
     return sf::Texture{displayImage};
-};
+}

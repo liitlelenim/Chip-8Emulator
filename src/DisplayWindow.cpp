@@ -5,7 +5,6 @@
 #include <iostream>
 
 DisplayWindow::DisplayWindow(const DisplayData &displayData) : displayData(displayData) {
-    window.setFramerateLimit(RefreshRate);
     if(!ImGui::SFML::Init(window)){
         std::cerr << "Could not initialize imgui\n";
     }
@@ -36,7 +35,6 @@ void DisplayWindow::Draw() {
     sf::Texture texture = displayData.GetDisplayTexture();
     sf::Sprite sprite{texture};
     sprite.setScale(sf::Vector2f{EmulationResolutionMultiplier, EmulationResolutionMultiplier});
-
 
     window.draw(sprite);
     ImGui::SFML::Render(window);

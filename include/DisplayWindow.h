@@ -4,21 +4,21 @@
 #include "DisplayData.h"
 #include "SFML/Graphics/Sprite.hpp"
 
+class EmulationSettings;
+
 class DisplayWindow {
 public:
-
     static constexpr unsigned int EmulationResolutionMultiplier = 10;
-    static constexpr unsigned int RefreshRate = 60;
 private:
     sf::Clock clock;
     const DisplayData &displayData;
+
     sf::RenderWindow window{sf::VideoMode(
             {
                     DisplayData::DisplayWidth * EmulationResolutionMultiplier,
                     DisplayData::DisplayHeight * EmulationResolutionMultiplier
             }), "CHIP-8"};
 public:
-
     explicit DisplayWindow(const DisplayData &displayData);
 
     bool ShouldBeOpen() const;
