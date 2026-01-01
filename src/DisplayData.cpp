@@ -1,28 +1,34 @@
 ﻿#include "DisplayData.h"
 #include "SFML/Graphics/Image.hpp"
 
-bool DisplayData::Draw(const std::vector<uint8_t> &spriteData, uint8_t xPos, uint8_t yPos) {
-    xPos %= DisplayWidth;
-    yPos %= DisplayHeight;
+bool DisplayData::Draw(const std::vector<uint8_t>& spriteData,
+                       uint8_t xPos,
+                       uint8_t yPos)
+{
     bool collisionHappened = false;
-    for (int y = yPos; y < yPos + spriteData.size(); y++) {
-        if (y >= DisplayHeight) continue;
-        for (int x = xPos; x < xPos + 8; x++) {
-            if (x >= DisplayWidth) continue;
-            bool initialBitVal = displayData[y][x];
-            displayData[y][x] = displayData[y][x] ^ (0x80 & (spriteData[y - yPos] >> (x - xPos)));
-            if (spriteData[y - yPos] & (0x80 >> (x - xPos))) {
-                displayData[y][x] = !displayData[y][x];
-            }
-            bool disabledPixel = initialBitVal && !displayData[y][x];
 
-            if (disabledPixel) {
+    for (size_t row = 0; row < spriteData.size(); row++) {
+        if (yPos + row >= DisplayHeight) continue;
+
+        uint8_t spriteByte = spriteData[row];
+
+        for (int col = 0; col < 8; col++) {
+            if (xPos + col >= DisplayWidth) continue;
+
+            bool spriteBit = spriteByte & (0x80 >> col);
+            if (!spriteBit) continue;
+
+            if (displayData[yPos + row][xPos + col]) {
                 collisionHappened = true;
             }
+
+            displayData[yPos + row][xPos + col] = !displayData[yPos + row][xPos + col];
         }
     }
+
     return collisionHappened;
 }
+
 
 void DisplayData::Clear() {
     displayData.fill(0);
