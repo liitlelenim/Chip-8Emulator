@@ -16,8 +16,8 @@ private:
     sf::RenderWindow window{sf::VideoMode(
             {
                     DisplayData::DisplayWidth * EmulationResolutionMultiplier,
-                    DisplayData::DisplayHeight * EmulationResolutionMultiplier
-            }), "CHIP-8"};
+                    DisplayData::DisplayHeight * EmulationResolutionMultiplier,
+            }), "CHIP-8", sf::Style::Titlebar | sf::Style::Close};
 public:
     explicit DisplayWindow(const DisplayData &displayData);
 

@@ -34,6 +34,7 @@ add_executable(CHIP8Emulator
         include/HexadecimalSprites.h
         src/Timers.cpp
         include/Timers.h
+        include/EmulationSettings.h
 )
 
 target_link_libraries(CHIP8Emulator
