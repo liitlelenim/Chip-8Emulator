@@ -5,6 +5,7 @@
 #include "Interpreter.h"
 #include "DisplayWindow.h"
 #include "EmulationSettings.h"
+#include "UserInterface.h"
 
 int main(int argc, char **argv) {
 
@@ -20,9 +21,10 @@ int main(int argc, char **argv) {
     }
 
     EmulationSettings emulationSettings;
+    UserInterface userInterface{emulationSettings};
     RomFile romFile{romPath};
     DisplayData displayData{emulationSettings};
-    DisplayWindow window{displayData};
+    DisplayWindow window{displayData, userInterface};
     Interpreter interpreter{romFile, displayData};
 
     while (window.ShouldBeOpen()) {

@@ -1,11 +1,13 @@
 ﻿#include "DisplayWindow.h"
+#include "UserInterface.h"
 #include <SFML/Graphics/Sprite.hpp>
 #include <imgui.h>
 #include <imgui-SFML.h>
 #include <iostream>
 
-DisplayWindow::DisplayWindow(const DisplayData &displayData) : displayData(displayData) {
-    if(!ImGui::SFML::Init(window)){
+DisplayWindow::DisplayWindow(const DisplayData &displayData, UserInterface &userInterface)
+        : displayData(displayData), userInterface(userInterface) {
+    if (!ImGui::SFML::Init(window)) {
         std::cerr << "Could not initialize imgui\n";
     }
 }
@@ -35,6 +37,8 @@ void DisplayWindow::Draw() {
     sf::Texture texture = displayData.GetDisplayTexture();
     sf::Sprite sprite{texture};
     sprite.setScale(sf::Vector2f{EmulationResolutionMultiplier, EmulationResolutionMultiplier});
+
+    userInterface.Draw();
 
     window.draw(sprite);
     ImGui::SFML::Render(window);

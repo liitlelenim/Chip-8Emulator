@@ -35,6 +35,8 @@ add_executable(CHIP8Emulator
         src/Timers.cpp
         include/Timers.h
         include/EmulationSettings.h
+        src/UserInterface.cpp
+        include/UserInterface.h
 )
 
 target_link_libraries(CHIP8Emulator
