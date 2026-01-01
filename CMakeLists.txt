@@ -9,8 +9,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin CACHE PATH "Output di
 set(SFML_BUILD_NETWORK OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(vendor/SFML-3.0.2/)
-
 add_subdirectory(vendor/imgui-1.91.9)
+
 target_link_libraries(imgui
         PUBLIC
         SFML::System
