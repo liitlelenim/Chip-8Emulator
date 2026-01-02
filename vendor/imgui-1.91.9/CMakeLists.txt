@@ -19,5 +19,8 @@ add_library(imgui STATIC
         imgui-SFML.h
         imgui-SFML_export.h
         imgui_draw.cpp
+        ImGuiFileDialog.cpp
+        ImGuiFileDialog.h
+        ImGuiFileDialogConfig.h
 )
 target_include_directories(imgui PUBLIC .)
