@@ -15,7 +15,7 @@ void UserInterface::Draw() {
                  ImGuiWindowFlags_NoResize
     );
 
-    ImGui::InputInt("Max instruction amount per seconds", &emulationSettings.MaxInstructionsPerSecond, 1, 10000);
+    ImGui::SliderInt("Max instruction amount per seconds", &emulationSettings.MaxInstructionsPerSecond, 10, 1000);
     ImGui::ColorEdit4("Pixel color", emulationSettings.PixelColor);
     ImGui::ColorEdit4("Background color", emulationSettings.BackgroundColor);
     ImGui::End();
