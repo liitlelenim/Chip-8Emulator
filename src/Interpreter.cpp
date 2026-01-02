@@ -2,15 +2,38 @@
 #include "Input.h"
 #include "HexadecimalSprites.h"
 
-Interpreter::Interpreter(const RomFile &romFile, DisplayData &displayData) : displayData(displayData) {
-    const std::vector<std::byte> &romData = romFile.GetData();
-    const auto &hexadecimalSprites = font_sprites::SpritesData;
-    std::copy(hexadecimalSprites.begin(), hexadecimalSprites.end(), memory.begin());
-    std::copy(romData.begin(), romData.end(), memory.begin() + ProgramStartAddress);
+Interpreter::Interpreter(DisplayData &displayData) : displayData(displayData) {
     InitializeMethodInstructions();
 }
 
+void Interpreter::ClearState() {
+    displayData.Clear();
+    timers.ClearState();
+    stack.fill(0);
+    registers.fill(0);
+    memory.fill(std::byte{0});
+    IRegister = 0;
+    stackPointer = 0;
+    programCounter = ProgramStartAddress;
+}
+
+void Interpreter::LoadRom(std::unique_ptr<const RomFile> romFile) {
+    UnloadRom();
+    loadedRom = std::move(romFile);
+    const std::vector<std::byte> &romData = loadedRom->GetData();
+    const auto &hexadecimalSprites = font_sprites::SpritesData;
+    std::copy(hexadecimalSprites.begin(), hexadecimalSprites.end(), memory.begin());
+    std::copy(romData.begin(), romData.end(), memory.begin() + ProgramStartAddress);
+}
+
+void Interpreter::UnloadRom() {
+    loadedRom = nullptr;
+}
+
 void Interpreter::PerformCurrentInstruction() {
+    if (loadedRom == nullptr) {
+        return;
+    }
     uint16_t fullOpCode = GetCurrentInstruction();
     instructionsMethods[static_cast<uint8_t>((fullOpCode & 0xF000) >> 12)](fullOpCode);
 }

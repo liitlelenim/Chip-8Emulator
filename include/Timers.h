@@ -8,6 +8,8 @@ public:
     std::atomic<uint8_t> SoundTimer{};
     std::atomic<uint8_t> DelayTimer{};
 
+    void ClearState();
+
 private:
     std::thread timersThread;
     std::atomic<bool> isRunning{true};

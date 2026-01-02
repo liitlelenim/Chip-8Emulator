@@ -15,6 +15,11 @@ void Timers::CountDownOnTimers() {
     }
 }
 
+void Timers::ClearState() {
+    SoundTimer = 0;
+    DelayTimer = 0;
+}
+
 void Timers::KillThread() {
     isRunning = false;
 }

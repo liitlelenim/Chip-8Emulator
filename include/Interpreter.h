@@ -13,12 +13,13 @@
 
 class Interpreter {
 public:
-    static constexpr size_t SizeOfMemoryBytes = 0xFFF;
+    static constexpr size_t SizeOfMemoryBytes = 0x1000;
     static constexpr size_t ProgramStartAddress = 0x200;
     static constexpr size_t InstructionSizeBytes = 2;
 private:
     DisplayData &displayData;
     Timers timers{};
+    std::unique_ptr<const RomFile> loadedRom{nullptr};
     std::array<std::byte, SizeOfMemoryBytes> memory{};
     std::array<uint8_t, 16> registers{0};
 
@@ -35,9 +36,15 @@ private:
     std::unordered_map<uint8_t, std::function<void(uint16_t opCode)>> OP_FSubInstructionsMethods;
 
 public:
-    explicit Interpreter(const RomFile &romFile, DisplayData &displayData);
+    explicit Interpreter(DisplayData &displayData);
 
     void PerformCurrentInstruction();
+
+    void LoadRom(std::unique_ptr<const RomFile> romFile);
+
+    void UnloadRom();
+
+    void ClearState();
 
 private:
     [[nodiscard]] uint16_t GetCurrentInstruction() const;
