@@ -15,11 +15,18 @@ void Interpreter::ClearState() {
     IRegister = 0;
     stackPointer = 0;
     programCounter = ProgramStartAddress;
+    LoadRomIntoMemory();
 }
 
-void Interpreter::LoadRom(std::unique_ptr<const RomFile> romFile) {
+void Interpreter::UpdateRomFile(std::unique_ptr<const RomFile> romFile) {
     UnloadRom();
     loadedRom = std::move(romFile);
+    LoadRomIntoMemory();
+}
+
+void Interpreter::LoadRomIntoMemory() {
+    if (loadedRom == nullptr) return;
+
     const std::vector<std::byte> &romData = loadedRom->GetData();
     const auto &hexadecimalSprites = font_sprites::SpritesData;
     std::copy(hexadecimalSprites.begin(), hexadecimalSprites.end(), memory.begin());

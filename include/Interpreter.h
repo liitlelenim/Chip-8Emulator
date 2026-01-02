@@ -40,7 +40,10 @@ public:
 
     void PerformCurrentInstruction();
 
-    void LoadRom(std::unique_ptr<const RomFile> romFile);
+
+    void LoadRomIntoMemory();
+
+    void UpdateRomFile(std::unique_ptr<const RomFile> romFile);
 
     void UnloadRom();
 
@@ -124,6 +127,4 @@ private:
     void OP_F_x55(uint16_t opCode);
 
     void OP_F_x65(uint16_t opCode);
-
-
 };

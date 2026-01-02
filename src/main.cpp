@@ -9,12 +9,11 @@
 
 int main(int argc, char **argv) {
 
-
     EmulationSettings emulationSettings;
-    UserInterface userInterface{emulationSettings};
     DisplayData displayData{emulationSettings};
-    DisplayWindow window{displayData, userInterface};
     Interpreter interpreter{displayData};
+    UserInterface userInterface{emulationSettings, interpreter};
+    DisplayWindow window{displayData, userInterface};
 
     if (argc == 2) {
 
@@ -23,7 +22,7 @@ int main(int argc, char **argv) {
             std::cerr << "File not found: " << romPath;
         }
         RomFile romFile{romPath};
-        interpreter.LoadRom(std::make_unique<const RomFile>(romFile));
+        interpreter.UpdateRomFile(std::make_unique<const RomFile>(romFile));
     }
 
     while (window.ShouldBeOpen()) {

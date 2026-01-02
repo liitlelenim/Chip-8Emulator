@@ -1,8 +1,10 @@
 ﻿#include "UserInterface.h"
 #include "imgui.h"
 #include "EmulationSettings.h"
+#include "Interpreter.h"
 
-UserInterface::UserInterface(EmulationSettings &emulationSettings) : emulationSettings(emulationSettings) {
+UserInterface::UserInterface(EmulationSettings &emulationSettings, Interpreter &interpreter) : emulationSettings(
+        emulationSettings), interpreter(interpreter) {
 
 }
 
@@ -18,5 +20,8 @@ void UserInterface::Draw() {
     ImGui::SliderInt("Max instruction amount per seconds", &emulationSettings.MaxInstructionsPerSecond, 10, 1000);
     ImGui::ColorEdit4("Pixel color", emulationSettings.PixelColor);
     ImGui::ColorEdit4("Background color", emulationSettings.BackgroundColor);
+    if (ImGui::Button("Restart")) {
+        interpreter.ClearState();
+    }
     ImGui::End();
 }
