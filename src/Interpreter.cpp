@@ -15,16 +15,17 @@ void Interpreter::ClearState() {
     IRegister = 0;
     stackPointer = 0;
     programCounter = ProgramStartAddress;
-    LoadRomIntoMemory();
+    LoadCurrentRomIntoMemory();
 }
 
 void Interpreter::UpdateRomFile(std::unique_ptr<const RomFile> romFile) {
     UnloadRom();
     loadedRom = std::move(romFile);
-    LoadRomIntoMemory();
+    ClearState();
+    LoadCurrentRomIntoMemory();
 }
 
-void Interpreter::LoadRomIntoMemory() {
+void Interpreter::LoadCurrentRomIntoMemory() {
     if (loadedRom == nullptr) return;
 
     const std::vector<std::byte> &romData = loadedRom->GetData();

@@ -41,7 +41,7 @@ public:
     void PerformCurrentInstruction();
 
 
-    void LoadRomIntoMemory();
+    void LoadCurrentRomIntoMemory();
 
     void UpdateRomFile(std::unique_ptr<const RomFile> romFile);
 
